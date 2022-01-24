@@ -16,7 +16,7 @@ type ProductInterface interface {
 	Disable() error
 	GetId() string
 	GetName() string
-	GetStatus() string
+	GetStatus() Status
 	GetPrice() float64
 }
 
@@ -49,9 +49,6 @@ const (
 
 func Init() {
 	validate = validator.New()
-
-	// validateStruct()
-	// validateVariable()
 }
 
 func (s Status) String() string {
