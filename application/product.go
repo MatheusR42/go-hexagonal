@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 )
 
 // use a single instance of Validate, it caches struct info
@@ -62,6 +63,16 @@ type Product struct {
 	Name   string  `validate:"required"`
 	Price  float64 `validate:"gt=-1"`
 	Status *Status `validate:"required"`
+}
+
+func NewProduct() *Product {
+	status := DISABLED
+	product := Product{
+		ID:     uuid.New().String(),
+		Status: &status,
+	}
+
+	return &product
 }
 
 func (p *Product) IsValid() (bool, error) {
