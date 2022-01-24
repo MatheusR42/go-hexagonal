@@ -19,6 +19,26 @@ type ProductInterface interface {
 	GetPrice() float64
 }
 
+type ProductServiceInterface interface {
+	Get(ID string) (ProductInterface, error)
+	Create(name string, price float64) (ProductInterface, error)
+	Enable(Product ProductInterface) (ProductInterface, error)
+	Disable(Product ProductInterface) (ProductInterface, error)
+}
+
+type ProductReaderInterface interface {
+	Get(ID string) (ProductInterface, error)
+}
+
+type ProductWriterInterface interface {
+	Save(product ProductInterface) (ProductInterface, error)
+}
+
+type ProductPersistenceInterface interface {
+	ProductReaderInterface
+	ProductWriterInterface
+}
+
 type Status int
 
 const (
