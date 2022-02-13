@@ -6,13 +6,13 @@ import (
 	"github.com/matheusr42/go-hexagonal/application"
 )
 
-type Action int
+type Action string
 
 const (
-	CREATE Action = iota
-	ENABLE
-	DISABLE
-	GET
+	CREATE  Action = "CREATE"
+	ENABLE         = "ENABLE"
+	DISABLE        = "DISABLE"
+	GET            = "GET"
 )
 
 func Run(service application.ProductServiceInterface, action Action, productID string, productName string, price float64) (string, error) {
@@ -56,6 +56,8 @@ func Run(service application.ProductServiceInterface, action Action, productID s
 		}
 
 		result = fmt.Sprintf("product: %s", product.GetName())
+	default:
+		return "", fmt.Errorf("invalid action")
 	}
 
 	return result, nil
