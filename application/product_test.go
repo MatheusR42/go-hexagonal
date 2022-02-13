@@ -3,7 +3,6 @@ package application_test
 import (
 	"testing"
 
-	"github.com/google/uuid"
 	"github.com/matheusr42/go-hexagonal/application"
 	"github.com/stretchr/testify/require"
 )
@@ -45,15 +44,10 @@ func TestProduct_Disable(t *testing.T) {
 }
 
 func TestProduct_IsValid(t *testing.T) {
-	application.Init()
-	status := application.DISABLED
+	product := application.NewProduct()
 
-	product := application.Product{
-		ID:     uuid.New().String(),
-		Name:   "Example",
-		Status: &status,
-		Price:  0,
-	}
+	product.Name = "Example"
+	product.Price = 0
 
 	valid, err := product.IsValid()
 	require.Equal(t, true, valid)

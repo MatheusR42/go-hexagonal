@@ -2,13 +2,17 @@ package application
 
 import (
 	"errors"
+	"sync"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 )
 
 // use a single instance of Validate, it caches struct info
-var validate *validator.Validate
+var (
+	validateOnce sync.Once
+	validate     *validator.Validate
+)
 
 type ProductInterface interface {
 	IsValid() (bool, error)
@@ -47,8 +51,10 @@ const (
 	ENABLED
 )
 
-func Init() {
-	validate = validator.New()
+func InitValidate() {
+	validateOnce.Do(func() {
+		validate = validator.New()
+	})
 }
 
 func (s Status) String() string {
@@ -63,6 +69,7 @@ type Product struct {
 }
 
 func NewProduct() *Product {
+	InitValidate()
 	status := DISABLED
 	product := Product{
 		ID:     uuid.New().String(),

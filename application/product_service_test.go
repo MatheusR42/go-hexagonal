@@ -27,8 +27,6 @@ func TestProductService_Get(t *testing.T) {
 }
 
 func TestProductService_Save(t *testing.T) {
-	application.Init()
-
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -46,8 +44,6 @@ func TestProductService_Save(t *testing.T) {
 }
 
 func TestProductService_Enable(t *testing.T) {
-	application.Init()
-
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
