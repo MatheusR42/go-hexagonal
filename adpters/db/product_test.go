@@ -23,7 +23,7 @@ func createTable(db *sql.DB) {
 		id stirng,
 		name string,
 		price float,
-		status string
+		status int
 		);`
 
 	stmt, err := db.Prepare(table)
